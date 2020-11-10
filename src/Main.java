@@ -14,6 +14,7 @@ public class Main {
     private static int scored;
     private static int noOfPoints;
     private static int playedMatches;
+    private static String date;
 
 
     public static void main(String[] args) throws IOException {
@@ -49,7 +50,7 @@ public class Main {
                     premierLeagueManager.displayLeagueTable();
                     break;
                 case "5":
-
+                    addPlayedMatch();
                     break;
                 case "6":
                     //premierLeagueManager.saveInformations();
@@ -168,7 +169,7 @@ public class Main {
                 }
             }while (!pointsBoolean);
 
-            do {
+           do {
                 try{
                     Scanner input7 = new Scanner(System.in);
                     System.out.print("10. Number of matches played : ");
@@ -198,6 +199,61 @@ public class Main {
         else {
             System.out.println("There are no football clubs to delete!");
         }
+
+    }
+
+    private static void addPlayedMatch() throws IOException{
+        if (Main.teams >= 1) {
+            boolean nameCheck = false,scoredBoolean,dateCheck=false;
+
+            do {
+                Scanner input1 = new Scanner(System.in);
+                System.out.print("Enter the date : ");
+                date = input1.next();
+                if ((date != null) &&(!date.equals(""))) {
+                    break;
+                }
+                System.out.println("Invalid input..... please try again");
+            } while (!dateCheck);
+
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("Enter your club name :");
+                clubName = input.next();
+                for (SportClub footBallClub : PremierLeagueManager.premierLeague) {
+                    if (footBallClub.getClubName().equals(clubName)) {
+
+                        do {
+                            try{
+                                Scanner input5 = new Scanner(System.in);
+                                System.out.print("1. Number of scored : ");
+                                scored = input5.nextInt();
+                                scoredBoolean = true;
+                            }catch (RuntimeException e){
+                                System.out.println("\t\tPlease enter integer input!\n");
+                                scoredBoolean = false;
+                            }
+                        }while (!scoredBoolean);
+
+                        nameCheck = true;
+                        break;
+                    } else {
+                        nameCheck = false;
+                    }
+                }
+                if (!nameCheck) {
+                    System.out.println("Not found!");
+                    nameCheck = false;
+                }
+
+            } while (!nameCheck);
+        } else {
+            System.out.println("There are no football clubs to add scored and date!");
+        }
+        SportClub footballClub ;
+
+        footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches,date);
+        premierLeagueManager.createNewClub(footballClub);
 
     }
 

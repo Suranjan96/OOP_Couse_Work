@@ -5,6 +5,6 @@ public interface LeagueManager {
     void deleteClub();
     void displayStatistics(String clubName);
     void displayLeagueTable();
-    void addPlayedMatch();
-    void saveInformations();
+    void addPlayedMatch(SportClub football);
+    void saveInformations(String name,String location, String foundedYear,String wins);
 }

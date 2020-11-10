@@ -1,4 +1,4 @@
-public abstract class SportClub {
+public abstract class SportClub implements java.io.Serializable {
     private String clubName;
     private String location;
     private String foundedYear;

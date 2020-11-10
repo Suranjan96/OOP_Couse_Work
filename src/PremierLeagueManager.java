@@ -71,7 +71,7 @@ public class PremierLeagueManager implements LeagueManager {
     public void displayLeagueTable() {
         if (Main.teams>=1){
             Collections.sort(premierLeague,Collections.reverseOrder());
-            System.out.println("Club Name\t\tWins\t\tDraws\t\tDefeats\t\tGoals\t\tScored\t\tPoints\t\tMatches");
+            System.out.println("Club Name\t\tWins\t\tDraws\t\tDefeats\t\tGoals\t\tScored\t\tPoints\t\tMatches\t\tDate");
             for (SportClub footBallClub : premierLeague) {
                 System.out.println();
                 System.out.print(((FootBallClub) footBallClub).getClubName());
@@ -81,7 +81,8 @@ public class PremierLeagueManager implements LeagueManager {
                 System.out.print(((FootBallClub) footBallClub).getNoOfGoals()+"\t\t\t\t");
                 System.out.print(((FootBallClub) footBallClub).getScored()+"\t\t\t\t");
                 System.out.print(((FootBallClub) footBallClub).getNoOfPoints()+"\t\t\t\t");
-                System.out.print(((FootBallClub) footBallClub).getNoOfMatches());
+                System.out.print(((FootBallClub) footBallClub).getNoOfMatches()+"\t\t\t\t");
+                System.out.print(((FootBallClub) footBallClub).getDate());
                 System.out.println();
             }
         }
@@ -91,11 +92,14 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public void addPlayedMatch() {
+    public void addPlayedMatch(SportClub football)  {
+        premierLeague.add(football);
+
     }
 
     @Override
-    public void saveInformations() {
+    public void saveInformations(String name,String location, String foundedYear,String wins) {
+        //SportClub footballClub = new SportClub(name,location,foundedYear);
     }
 
 }
