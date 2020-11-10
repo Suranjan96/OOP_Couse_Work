@@ -87,7 +87,6 @@ public class PremierLeagueManager implements LeagueManager {
         }
         else  {
             System.out.println("There are no football clubs to display Premier League Table!");
-            System.out.println("There are no football clubs to display Premier League Table!");
         }
     }
 
