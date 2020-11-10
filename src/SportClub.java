@@ -6,7 +6,7 @@ public abstract class SportClub {
     public SportClub(String clubName, String location, String foundedYear) {
         this.clubName = clubName;
         this.location = location;
-        this.foundedYear = foundedYear;
+        this.foundedYear = foundedYear; //
     }
 
     public String getClubName() {

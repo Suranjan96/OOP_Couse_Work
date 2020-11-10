@@ -57,7 +57,7 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
 
     public void setScored(int scored) {
         this.scored = scored;
-    }
+    }//
 
     public int getNoOfPoints() {
         return noOfPoints;

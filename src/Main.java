@@ -13,7 +13,7 @@ public class Main {
     private static int noOfGoals;
     private static int scored;
     private static int noOfPoints;
-    private static int playedMatches;
+    private static int playedMatches; //add
 
 
     public static void main(String[] args) throws IOException {
