@@ -1,4 +1,4 @@
-public abstract class SportClub implements java.io.Serializable {
+public class SportClub  {
     private String clubName;
     private String location;
     private String foundedYear;
@@ -32,8 +32,6 @@ public abstract class SportClub implements java.io.Serializable {
     public void setFoundedYear(String foundedYear) {
         this.foundedYear = foundedYear;
     }
-
-
 
 
 }

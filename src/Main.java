@@ -4,17 +4,28 @@ import java.util.Scanner;
 public class Main {
     private final static PremierLeagueManager premierLeagueManager = new PremierLeagueManager();
     public static int teams=0;
-    private static String clubName;
+    private static String clubName1;
+    private static String clubName2;
     private static String location;
     private static String foundedYear;
-    private static int wins;
-    private static int draws;
-    private static int defeats;
-    private static int noOfGoals;
-    private static int scored;
-    private static int noOfPoints;
-    private static int playedMatches;
-    private static String date;
+    private static int wins1=0;
+    private static int wins2=0;
+    private static int draws1=0;
+    private static int draws2=0;
+    private static int defeats1=0;
+    private static int defeats2=0;
+    private static int noOfGoals1=0;
+    private static int noOfGoals2=0;
+    private static int scored1=0;
+    private static int scored2=0;
+    private static int noOfPoints1=0;
+    private static int noOfPoints2=0;
+    public static int playedMatches1=0;
+    public static int playedMatches2=0;
+    private static int team1Scored=0;
+    private static int team2Scored=0;
+    private static String date="-";
+
 
 
     public static void main(String[] args) throws IOException {
@@ -44,7 +55,7 @@ public class Main {
                     deleteFootballClub();
                     break;
                 case "3":
-                    premierLeagueManager.displayStatistics(clubName);
+                    premierLeagueManager.displayStatistics(clubName1);
                     break;
                 case "4":
                     premierLeagueManager.displayLeagueTable();
@@ -66,13 +77,13 @@ public class Main {
 
     private static void createNewFootBallClub() throws IOException{
         if (teams<=19){
-            boolean winsBoolean,drawsBoolean,defeatsBoolean,goalsBoolean,scoredBoolean,pointsBoolean,matchesBoolean,nameCheck=false;
+            boolean nameCheck=false;
             Scanner input = new Scanner(System.in);
 
             do {
                 System.out.print("1. Name of your club : ");
-                clubName = input.next();
-                if ((clubName != null) && (clubName.matches("^[a-zA-Z]*$"))) {
+                clubName1 = input.next();
+                if ((clubName1 != null) && (clubName1.matches("^[a-zA-Z]*$"))) {
                     break;
                 }
                 System.out.println("Invalid input..... please try again");
@@ -97,92 +108,9 @@ public class Main {
                 System.out.println("Invalid input..... please try again");
             } while (!nameCheck);
 
-            do {
-                try{
-                    Scanner input1 = new Scanner(System.in);
-                    System.out.print("4. Number of wins you achieved : ");
-                    wins = input1.nextInt();
-                    winsBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    winsBoolean = false;
-                }
-            }while (!winsBoolean);
 
-            do {
-                try{
-                    Scanner input2 = new Scanner(System.in);
-                    System.out.print("5. Number of draws you achieved : ");
-                    draws = input2.nextInt();
-                    drawsBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    drawsBoolean = false;
-                }
-            }while (!drawsBoolean);
-
-            do {
-                try{
-                    Scanner input3 = new Scanner(System.in);
-                    System.out.print("6. Number of defeats you achieved : ");
-                    defeats = input3.nextInt();
-                    defeatsBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    defeatsBoolean = false;
-                }
-            }while (!defeatsBoolean);
-
-            do {
-                try{
-                    Scanner input4 = new Scanner(System.in);
-                    System.out.print("7. Number of goals you received : ");
-                    noOfGoals = input4.nextInt();
-                    goalsBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    goalsBoolean = false;
-                }
-            }while (!goalsBoolean);
-
-            do {
-                try{
-                    Scanner input5 = new Scanner(System.in);
-                    System.out.print("8. Number of scored : ");
-                    scored = input5.nextInt();
-                    scoredBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    scoredBoolean = false;
-                }
-            }while (!scoredBoolean);
-
-            do {
-                try{
-                    Scanner input6 = new Scanner(System.in);
-                    System.out.print("9. Number of points your club currently has : ");
-                    noOfPoints = input6.nextInt();
-                    pointsBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    pointsBoolean = false;
-                }
-            }while (!pointsBoolean);
-
-           do {
-                try{
-                    Scanner input7 = new Scanner(System.in);
-                    System.out.print("10. Number of matches played : ");
-                    playedMatches = input7.nextInt();
-                    matchesBoolean = true;
-                }catch (RuntimeException e){
-                    System.out.println("\t\tPlease enter integer input!\n");
-                    matchesBoolean = false;
-                }
-            }while (!matchesBoolean);
-
-            SportClub footballClub = null;
-            footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches);
+            SportClub footballClub = new FootBallClub(clubName1,location,foundedYear,0,0,0,0,0,0,0,"-");
+            //footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches,date);
             teams+=1;
             premierLeagueManager.createNewClub(footballClub);
 
@@ -192,7 +120,7 @@ public class Main {
     }
 
     private static void deleteFootballClub() throws IOException{
-        if(teams>=1){
+        if((teams>=2) && (playedMatches1>0 || playedMatches2>0)){
             premierLeagueManager.deleteClub();
             teams-=1;
         }
@@ -203,7 +131,7 @@ public class Main {
     }
 
     private static void addPlayedMatch() throws IOException{
-        if (Main.teams >= 1) {
+        if (Main.teams >= 2) {
             boolean nameCheck = false,scoredBoolean,dateCheck=false;
 
             do {
@@ -216,45 +144,120 @@ public class Main {
                 System.out.println("Invalid input..... please try again");
             } while (!dateCheck);
 
+            int a,b;
             do {
                 Scanner input = new Scanner(System.in);
-                System.out.print("Enter your club name :");
-                clubName = input.next();
+                System.out.print("1. Enter your club name :");
+                clubName1 = input.next();
+                 a = 0;
                 for (SportClub footBallClub : PremierLeagueManager.premierLeague) {
-                    if (footBallClub.getClubName().equals(clubName)) {
-
+                    if (footBallClub.getClubName().equals(clubName1)) {
                         do {
-                            try{
+                            try {
                                 Scanner input5 = new Scanner(System.in);
-                                System.out.print("1. Number of scored : ");
-                                scored = input5.nextInt();
+                                System.out.print(">> Number of scored : ");
+                                team1Scored = input5.nextInt();
+                                System.out.println();
                                 scoredBoolean = true;
-                            }catch (RuntimeException e){
+                            } catch (RuntimeException e) {
                                 System.out.println("\t\tPlease enter integer input!\n");
                                 scoredBoolean = false;
                             }
-                        }while (!scoredBoolean);
-
+                        } while (!scoredBoolean);
                         nameCheck = true;
                         break;
                     } else {
                         nameCheck = false;
                     }
+                    a++;
                 }
                 if (!nameCheck) {
                     System.out.println("Not found!");
                     nameCheck = false;
                 }
-
             } while (!nameCheck);
+
+            do {
+                Scanner input = new Scanner(System.in);
+                System.out.print("2. Enter your club name :");
+                clubName2 = input.next();
+                b=0;
+                for (SportClub footBallClub : PremierLeagueManager.premierLeague) {
+                    if (footBallClub.getClubName().equals(clubName2)) {
+                        do {
+                            try {
+                                Scanner input5 = new Scanner(System.in);
+                                System.out.print(">> Number of scored : ");
+                                team2Scored = input5.nextInt();
+                                System.out.println();
+                                scoredBoolean = true;
+                            } catch (RuntimeException e) {
+                                System.out.println("\t\tPlease enter integer input!\n");
+                                scoredBoolean = false;
+                            }
+                        } while (!scoredBoolean);
+                        nameCheck = true;
+                        break;
+                    } else {
+                        nameCheck = false;
+                    }
+                    b++;
+                }
+                if (!nameCheck) {
+                    System.out.println("Not found!");
+                    nameCheck = false;
+                }
+            } while (!nameCheck);
+
+            for (SportClub footBallClub : PremierLeagueManager.premierLeague) {
+                if ((footBallClub.getClubName().equals(clubName1))) {
+                    if (team1Scored > team2Scored) {
+                        wins1 = ((FootBallClub) footBallClub).getWins()+1;
+                        noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints()+3;
+
+                    } else if (team2Scored > team1Scored) {
+                        defeats1 = ((FootBallClub) footBallClub).getDefeats()+1;
+                        noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints();
+                    } else if (team1Scored == team2Scored) {
+                        draws1 = ((FootBallClub) footBallClub).getDraws()+1;
+                        noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints()+1;
+                    }
+                    noOfGoals1 = ((FootBallClub) footBallClub).getNoOfGoals()+team2Scored;
+                    scored1 = ((FootBallClub) footBallClub).getScored()+team1Scored;
+                    playedMatches1=((FootBallClub) footBallClub).getNoOfMatches()+1;
+
+
+                }else if ((footBallClub.getClubName().equals(clubName2))){
+                    if (team2Scored > team1Scored) {
+                        wins2 = ((FootBallClub) footBallClub).getWins()+1;
+                        noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints()+3;
+
+                    } else if (team1Scored > team2Scored) {
+                        defeats2 = ((FootBallClub) footBallClub).getDefeats()+1;
+                        noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints();
+                    } else if (team1Scored == team2Scored) {
+                        draws2 = ((FootBallClub) footBallClub).getDraws()+1;
+                        noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints()+1;
+                    }
+                    noOfGoals2 = ((FootBallClub) footBallClub).getNoOfGoals()+team1Scored;
+                    scored2 = ((FootBallClub) footBallClub).getScored()+team2Scored;
+                    playedMatches2=((FootBallClub) footBallClub).getNoOfMatches()+1;
+                }
+            }
+
+
+            SportClub footballClub1 = new FootBallClub(clubName1,location,foundedYear,wins1,draws1,defeats1,noOfGoals1,scored1,noOfPoints1,playedMatches1,date);
+            SportClub footballClub2 = new FootBallClub(clubName2,location,foundedYear,wins2,draws2,defeats2,noOfGoals2,scored2,noOfPoints2,playedMatches2,date);
+
+            PremierLeagueManager.premierLeague.set(a,footballClub1);
+            PremierLeagueManager.premierLeague.set(b,footballClub2);
+
+            premierLeagueManager.addPlayedMatch(footballClub1);
+            premierLeagueManager.addPlayedMatch(footballClub2);
+
+
         } else {
-            System.out.println("There are no football clubs to add scored and date!");
+            System.out.println("There are no two football clubs to add scored and date!");
         }
-        SportClub footballClub ;
-
-        footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches,date);
-        premierLeagueManager.createNewClub(footballClub);
-
     }
-
 }

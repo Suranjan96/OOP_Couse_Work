@@ -3,8 +3,8 @@ import java.io.IOException;
 public interface LeagueManager {
     void createNewClub(SportClub footBallClub) throws IOException;
     void deleteClub();
-    void displayStatistics(String clubName);
+    void displayStatistics(String clubName) throws IOException;
     void displayLeagueTable();
-    void addPlayedMatch(SportClub football);
-    void saveInformations(String name,String location, String foundedYear,String wins);
+    void addPlayedMatch(SportClub football) throws IOException;
+    void saveInformation();
 }
