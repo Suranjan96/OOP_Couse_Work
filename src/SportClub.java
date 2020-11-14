@@ -35,5 +35,19 @@ public class SportClub implements Serializable {
         this.foundedYear = foundedYear;
     }
 
-
+    public static boolean clubChecker(String clubName){      //duplicate club names checking
+        if((clubName!=null) && clubName.matches("^[a-zA-Z]*$")){
+            for (SportClub name : PremierLeagueManager.premierLeague){
+                if (name.getClubName().equalsIgnoreCase(clubName)){
+                    System.out.println("Duplicate club name!!");
+                    return false;
+                }
+            }
+            return true;
+        }
+        else {
+            System.out.println("Invalid input..... please try again");
+            return false;
+        }
+    }
 }
