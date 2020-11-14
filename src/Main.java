@@ -23,12 +23,10 @@ public class Main {
     private static int playedMatches2=0;
     private static int team1Scored=0;
     private static int team2Scored=0;
-    private static int playedMatches=-1;
+    public static int playedMatches=-1;
     private static int goalDifference1 =0;
     private static int goalDifference2 =0;
     private static String date="-";
-
-
 
     public static void main(String[] args) throws IOException {
         premierLeagueManager.loadInformation();    //loading stored data
@@ -102,7 +100,7 @@ public class Main {
             do {
                 System.out.print("3. Enter your founded year : ");
                 foundedYear = input.next();
-                if ((foundedYear != null) && (foundedYear.matches("^[0-2]|[8-9]|[0-9]|[0-9]*$"))) {     //year validation
+                if ((foundedYear != null)  && (foundedYear.matches("^[0-2]|[8-9]|[0-9]|[0-9]*$"))) {     //year validation
                     break;
                 }
                 System.out.println("Invalid input..... please try again");
@@ -125,12 +123,12 @@ public class Main {
             playedMatches++;
             do {
                 Scanner input1 = new Scanner(System.in);
-                System.out.print("Enter the date : ");
+                System.out.print("Enter the date (DD-MM-YYYY) : ");
                 date = input1.next();
-                if ((date != null) &&(!date.equals(""))) {
+                if ((date != null) && (!date.equals("")) && (date.matches("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$"))) {   https://www.regular-expressions.info/dates.html#:~:text=To%20match%20a%20date%20in,%5D)%5B%2D%20%2F.%5D
                     break;
                 }
-                System.out.println("Invalid input..... please try again");
+                System.out.println("Invalid input..... please try again\n");
             } while (!dateCheck);
 
             int a,b;  //count index of arraylist
@@ -171,29 +169,34 @@ public class Main {
                 System.out.print("2. Enter your club name :");          //getting the first club name
                 clubName2 = input.next();
                 b=0;
-                for (SportClub footBallClub : PremierLeagueManager.premierLeague) {     //checking relevant name from arraylist
-                    if (footBallClub.getClubName().equalsIgnoreCase(clubName2)) {
-                        do {
-                            try {
-                                Scanner input5 = new Scanner(System.in);
-                                System.out.print(">> Number of scored : ");
-                                team2Scored = input5.nextInt();
-                                System.out.println();
-                                scoredBoolean = true;
-                            } catch (RuntimeException e) {
-                                System.out.println("\t\tPlease enter integer input!\n");
-                                scoredBoolean = false;
-                            }
-                        } while (!scoredBoolean);
-                        nameCheck = true;
-                        break;
-                    }else {
+                if (!clubName1.equalsIgnoreCase(clubName2)) {
+                    for (SportClub footBallClub : PremierLeagueManager.premierLeague) {     //checking relevant name from arraylist
+                        if (footBallClub.getClubName().equalsIgnoreCase(clubName2)) {
+                            do {
+                                try {
+                                    Scanner input5 = new Scanner(System.in);
+                                    System.out.print(">> Number of scored : ");
+                                    team2Scored = input5.nextInt();
+                                    System.out.println();
+                                    scoredBoolean = true;
+                                } catch (RuntimeException e) {
+                                    System.out.println("\t\tPlease enter integer input!\n");
+                                    scoredBoolean = false;
+                                }
+                            } while (!scoredBoolean);
+                            nameCheck = true;
+                            break;
+                        } else {
+                            nameCheck = false;
+                        }
+                        b++;
+                    }
+                    if (!nameCheck) {
+                        System.out.println("Not found!");
                         nameCheck = false;
                     }
-                    b++;
-                }
-                if (!nameCheck) {
-                    System.out.println("Not found!");
+                }else {
+                    System.out.println("Duplicate club name");
                     nameCheck = false;
                 }
             } while (!nameCheck);
@@ -243,9 +246,8 @@ public class Main {
 
             SportClub playedMatch1 = new FootBallClub(clubName1,"","",0,0,0,0,scored1,0,0,0,date);   //pass the matches details to the constructor
             SportClub playedMatch2 = new FootBallClub(clubName2,"","",0,0,0,0,scored2,0,0,0,date);
-            PremierLeagueManager.matches1.add(playedMatches,playedMatch1);      //add team name, score and date to the marches1 arraylist
-            PremierLeagueManager.matches2.add(playedMatches,playedMatch2);      //add team name, score and date to the marches2 arraylist
 
+            premierLeagueManager.addPlayedMatch(playedMatch1,playedMatch2);
         } else {
             System.out.println("There are no two football clubs to add scored and date!");
         }

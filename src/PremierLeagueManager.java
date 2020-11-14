@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
 public class PremierLeagueManager implements LeagueManager {
     public static List<SportClub> premierLeague = new ArrayList<>() ;
     public static List<SportClub> matches1 = new ArrayList<>();
@@ -101,8 +100,10 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public void addPlayedMatch(SportClub football) throws IOException  {
+    public void addPlayedMatch(SportClub playedMatch1,SportClub playedMatch2) throws IOException  {
 
+        matches1.add(Main.playedMatches,playedMatch1);      //add team name, score and date to the marches1 arraylist
+        matches2.add(Main.playedMatches,playedMatch2);      //add team name, score and date to the marches2 arraylist
     }
 
     @Override

@@ -5,7 +5,7 @@ public interface LeagueManager {
     void deleteClub();
     void displayStatistics(String clubName) throws IOException;
     void displayLeagueTable();
-    void addPlayedMatch(SportClub football) throws IOException;
+    void addPlayedMatch(SportClub playedMatch1,SportClub playedMatch2) throws IOException;
     void saveInformation();
     void loadInformation();
 }
