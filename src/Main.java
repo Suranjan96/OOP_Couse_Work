@@ -24,11 +24,15 @@ public class Main {
     public static int playedMatches2=0;
     private static int team1Scored=0;
     private static int team2Scored=0;
+    private static int playedMatches=-1;
+    private static int goalDifference1 =0;
+    private static int goalDifference2 =0;
     private static String date="-";
 
 
 
     public static void main(String[] args) throws IOException {
+        premierLeagueManager.loadInformation();
         System.out.println("**************************** Premier League Manager ****************************");
         menu:
         while (true) {
@@ -64,9 +68,9 @@ public class Main {
                     addPlayedMatch();
                     break;
                 case "6":
-                    //premierLeagueManager.saveInformations();
+                    premierLeagueManager.saveInformation();
                     break;
-                case "Q":
+                    case "Q":
                 case "q":
                     break menu;
                 default:
@@ -109,7 +113,7 @@ public class Main {
             } while (!nameCheck);
 
 
-            SportClub footballClub = new FootBallClub(clubName1,location,foundedYear,0,0,0,0,0,0,0,"-");
+            SportClub footballClub = new FootBallClub(clubName1,location,foundedYear,0,0,0,0,0,0,0,0,"-");
             //footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches,date);
             teams+=1;
             premierLeagueManager.createNewClub(footballClub);
@@ -120,7 +124,7 @@ public class Main {
     }
 
     private static void deleteFootballClub() throws IOException{
-        if((teams>=2) && (playedMatches1>0 || playedMatches2>0)){
+        if(PremierLeagueManager.premierLeague.size()>=2){
             premierLeagueManager.deleteClub();
             teams-=1;
         }
@@ -131,9 +135,9 @@ public class Main {
     }
 
     private static void addPlayedMatch() throws IOException{
-        if (Main.teams >= 2) {
+        if (PremierLeagueManager.premierLeague.size() >= 2) {
             boolean nameCheck = false,scoredBoolean,dateCheck=false;
-
+            playedMatches++;
             do {
                 Scanner input1 = new Scanner(System.in);
                 System.out.print("Enter the date : ");
@@ -214,47 +218,48 @@ public class Main {
                     if (team1Scored > team2Scored) {
                         wins1 = ((FootBallClub) footBallClub).getWins()+1;
                         noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints()+3;
-
-                    } else if (team2Scored > team1Scored) {
+                    }
+                    else if (team2Scored > team1Scored) {
                         defeats1 = ((FootBallClub) footBallClub).getDefeats()+1;
                         noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints();
-                    } else if (team1Scored == team2Scored) {
+                    }
+                    else if (team1Scored == team2Scored) {
                         draws1 = ((FootBallClub) footBallClub).getDraws()+1;
                         noOfPoints1 = ((FootBallClub) footBallClub).getNoOfPoints()+1;
                     }
                     noOfGoals1 = ((FootBallClub) footBallClub).getNoOfGoals()+team2Scored;
                     scored1 = ((FootBallClub) footBallClub).getScored()+team1Scored;
                     playedMatches1=((FootBallClub) footBallClub).getNoOfMatches()+1;
-
+                    goalDifference1 =scored1-noOfGoals1;
 
                 }else if ((footBallClub.getClubName().equals(clubName2))){
                     if (team2Scored > team1Scored) {
                         wins2 = ((FootBallClub) footBallClub).getWins()+1;
                         noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints()+3;
-
-                    } else if (team1Scored > team2Scored) {
+                    }
+                    else if (team1Scored > team2Scored) {
                         defeats2 = ((FootBallClub) footBallClub).getDefeats()+1;
                         noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints();
-                    } else if (team1Scored == team2Scored) {
+                    }
+                    else if (team1Scored == team2Scored) {
                         draws2 = ((FootBallClub) footBallClub).getDraws()+1;
                         noOfPoints2 = ((FootBallClub) footBallClub).getNoOfPoints()+1;
                     }
                     noOfGoals2 = ((FootBallClub) footBallClub).getNoOfGoals()+team1Scored;
                     scored2 = ((FootBallClub) footBallClub).getScored()+team2Scored;
                     playedMatches2=((FootBallClub) footBallClub).getNoOfMatches()+1;
+                    goalDifference2 =scored2-noOfGoals2;
                 }
             }
-
-
-            SportClub footballClub1 = new FootBallClub(clubName1,location,foundedYear,wins1,draws1,defeats1,noOfGoals1,scored1,noOfPoints1,playedMatches1,date);
-            SportClub footballClub2 = new FootBallClub(clubName2,location,foundedYear,wins2,draws2,defeats2,noOfGoals2,scored2,noOfPoints2,playedMatches2,date);
-
+            SportClub footballClub1 = new FootBallClub(clubName1,location,foundedYear,wins1,draws1,defeats1,noOfGoals1,scored1,noOfPoints1,playedMatches1, goalDifference1,date);
+            SportClub footballClub2 = new FootBallClub(clubName2,location,foundedYear,wins2,draws2,defeats2,noOfGoals2,scored2,noOfPoints2,playedMatches2, goalDifference2,date);
             PremierLeagueManager.premierLeague.set(a,footballClub1);
             PremierLeagueManager.premierLeague.set(b,footballClub2);
 
-            premierLeagueManager.addPlayedMatch(footballClub1);
-            premierLeagueManager.addPlayedMatch(footballClub2);
-
+            SportClub playedMatch1 = new FootBallClub(clubName1,"","",0,0,0,0,scored1,0,0,0,date);
+            SportClub playedMatch2 = new FootBallClub(clubName2,"","",0,0,0,0,scored2,0,0,0,date);
+            PremierLeagueManager.matches1.add(playedMatches,playedMatch1);
+            PremierLeagueManager.matches2.add(playedMatches,playedMatch2);
 
         } else {
             System.out.println("There are no two football clubs to add scored and date!");

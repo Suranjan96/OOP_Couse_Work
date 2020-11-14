@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 public  class FootBallClub extends SportClub implements Comparable<FootBallClub> {
     private int wins;
     private int draws;
@@ -8,10 +6,11 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
     private int scored;
     private int noOfPoints;
     private int noOfMatches;
+    private int goalDifference;
     private String date;
 
 
-    public FootBallClub(String clubName,String location, String foundedYear,int wins, int draws, int defeats, int noOfGoals, int scored, int noOfPoints, int noOfMatches,String date) {
+    public FootBallClub(String clubName,String location, String foundedYear,int wins, int draws, int defeats, int noOfGoals, int scored, int noOfPoints, int noOfMatches,int goalDifferentsString,String date) {
         super(clubName,location,foundedYear);
         this.wins = wins;
         this.draws = draws;
@@ -20,8 +19,10 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
         this.scored = scored;
         this.noOfPoints = noOfPoints;
         this.noOfMatches = noOfMatches;
+        this.goalDifference = goalDifferentsString;
         this.date = date;
     }
+
 
     public int getWins() {
         return wins;
@@ -79,6 +80,14 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
         this.noOfMatches = noOfMatches;
     }
 
+    public int getGoalDifference() {
+        return goalDifference;
+    }
+
+    public void setGoalDifference(int goalDifference) {
+        this.goalDifference = goalDifference;
+    }
+
     public String getDate() {
         return date;
     }
@@ -88,37 +97,24 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
     }
 
     public int compareTo(FootBallClub points){           //https://www.javatpoint.com/Comparable-interface-in-collection-framework
-        if (noOfPoints==points.noOfPoints){
-            return 0;
-        }else if (noOfPoints>points.noOfPoints){
+        if (noOfPoints>points.noOfPoints){
             return 1;
-        }else {
+        }
+        else if (getNoOfPoints()==points.getNoOfPoints()){
+            if (getGoalDifference()>points.getGoalDifference()){
+                return 1;
+            }else if (getGoalDifference()>points.getGoalDifference()){
+                return 0;
+            }else {
+                return -1;
+
+            }
+        }
+        else {
             return -1;
         }
     }
 
-   /* public int compareTo(FootBallClub score){
-        if (scored==score.scored){
-            return 0;
-        }else if (scored>score.scored){
-            return 1;
-        }else {
-            return -1;
-        }
-    }*/
-    public static Comparator<FootBallClub> Goals = new Comparator<FootBallClub>() {      //https://www.journaldev.com/780/comparable-and-comparator-in-java-example
-        @Override
-        public int compare(FootBallClub o1, FootBallClub o2) {
-            FootBallClub football1 = (FootBallClub) o1;
-            FootBallClub football2 = (FootBallClub) o2;
-            if (football1.noOfGoals==football2.noOfGoals){
-                return 0;
-            }else if (football1.noOfGoals>football2.noOfGoals){
-                return 1;
-            }else {
-                return -1;
-            }
-        }
-    };
+
 
 }

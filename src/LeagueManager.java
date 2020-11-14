@@ -7,4 +7,5 @@ public interface LeagueManager {
     void displayLeagueTable();
     void addPlayedMatch(SportClub football) throws IOException;
     void saveInformation();
+    void loadInformation();
 }
