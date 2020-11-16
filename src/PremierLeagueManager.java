@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class PremierLeagueManager implements LeagueManager {
+public class PremierLeagueManager implements LeagueManager  {
     public static List<SportClub> premierLeague = new ArrayList<>() ;
     public static List<SportClub> matches1 = new ArrayList<>();
     public static List<SportClub> matches2 = new ArrayList<>();

@@ -23,7 +23,6 @@ public  class FootBallClub extends SportClub implements Comparable<FootBallClub>
         this.date = date;
     }
 
-
     public int getWins() {
         return wins;
     }
