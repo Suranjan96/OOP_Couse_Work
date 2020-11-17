@@ -106,7 +106,7 @@ public class Main {
                 System.out.println("Invalid input..... please try again");
             } while (!nameCheck);
 
-
+            System.out.println("\nSuccessfully "+clubName1 +" club added to the Premier League");
             SportClub footballClub = new FootBallClub(clubName1,location,foundedYear,0,0,0,0,0,0,0,0,"-");   //pass data to the constructor
             //footballClub = new FootBallClub(clubName,location,foundedYear,wins,draws,defeats,noOfGoals,scored,noOfPoints,playedMatches,date);
             //teams+=1;
@@ -123,9 +123,9 @@ public class Main {
             playedMatches++;
             do {
                 Scanner input1 = new Scanner(System.in);
-                System.out.print("Enter the date (DD-MM-YYYY) : ");
+                System.out.print("Enter the date (YYYY-MM-DD) : ");
                 date = input1.next();
-                if ((date != null) && (!date.equals("")) && (date.matches("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$"))) {   https://www.regular-expressions.info/dates.html#:~:text=To%20match%20a%20date%20in,%5D)%5B%2D%20%2F.%5D
+                if ((date != null) && (!date.equals("")) && (date.matches("^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"))) {   https://www.regular-expressions.info/dates.html#:~:text=To%20match%20a%20date%20in,%5D)%5B%2D%20%2F.%5D
                     break;
                 }
                 System.out.println("Invalid input..... please try again\n");

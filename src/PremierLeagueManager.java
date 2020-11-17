@@ -18,9 +18,22 @@ public class PremierLeagueManager implements LeagueManager  {
     public void deleteClub() {
         if(PremierLeagueManager.premierLeague.size()>=2) {
             premierLeague.sort(Collections.reverseOrder());    //https://stackoverflow.com/questions/61224776/reason-no-instances-of-type-variables-t-exist-so-that-int-conforms-to-t
-            premierLeague.remove(premierLeague.size() - 1);    //delete the last object from arraylist
+              //delete the last object from arraylist
 
-            System.out.println("Last has been successfully deleted!!!");
+            SportClub footBallClub = premierLeague.get(premierLeague.size()-1);
+            System.out.println("Last"+footBallClub.getClubName() +"club has been successfully deleted!!!");
+            System.out.println("> Founded Year      : " + footBallClub.getFoundedYear());
+            System.out.println("> Location          : " + footBallClub.getLocation());
+            System.out.println("> Number of Matches : " + ((FootBallClub) footBallClub).getNoOfMatches());
+            System.out.println("> Wins              : " + ((FootBallClub) footBallClub).getWins());
+            System.out.println("> Draws             : " + ((FootBallClub) footBallClub).getDraws());
+            System.out.println("> Lost              : " + ((FootBallClub) footBallClub).getDefeats());
+            System.out.println("> Number of Goals   : " + ((FootBallClub) footBallClub).getNoOfGoals());
+            System.out.println("> Scored            : " + ((FootBallClub) footBallClub).getScored());
+            System.out.println("> Goal Difference   : " + ((FootBallClub) footBallClub).getGoalDifference());
+            System.out.println("> Number of Points  : " + ((FootBallClub) footBallClub).getNoOfPoints());
+
+            premierLeague.remove(premierLeague.size() - 1);
             System.out.println("\nNumber of club registered: "+premierLeague.size());
             System.out.println("Number of free slots : "+(20-premierLeague.size()));
         }
